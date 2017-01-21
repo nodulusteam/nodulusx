@@ -3,12 +3,22 @@
 import { TestBed, async } from '@angular/core/testing';
 import { AppComponent } from './app.component';
 
+import {
+    RouterTestingModule
+} from '@angular/router/testing';
+
+ 
+
+
+
 describe('AppComponent', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
       declarations: [
-        AppComponent
+        AppComponent,
+         {provide: Router,  useClass: MockRouter }
       ],
+      imports: [ RouterTestingModule ]
     });
     TestBed.compileComponents();
   });

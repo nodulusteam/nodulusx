@@ -1,11 +1,21 @@
-import { browser, element, by } from 'protractor';
+import {  element, by } from 'protractor';
+const Browser = require('zombie');
+
 
 export class NodulusXPage {
+
+  browser = new Browser();
+
   navigateTo() {
-    return browser.get('/');
+    return this.browser.visit('/');
+  }
+
+
+  navigateToLogin() {
+    return this.browser.visit('/login');
   }
 
   getParagraphText() {
-    return element(by.css('app-root h1')).getText();
+    return element(by.css('app-root p')).getText();
   }
 }
