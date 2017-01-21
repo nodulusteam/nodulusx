@@ -3,9 +3,17 @@
 # compiled output
 /dist
 /tmp
+/client
 
 # dependencies
 /node_modules
+
+
+# server
+*.js
+
+
+
 
 # IDEs and editors
 /.idea
