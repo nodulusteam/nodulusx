@@ -1,8 +1,14 @@
 # NodulusX
 
+this is a new client for the nodulus backend.
+it is a complete remake of the original nodulus that can be found here [nodulus](https://github.com/nodulusteam/nodulus)
+
+
+
 This project was generated with [angular-cli](https://github.com/angular/angular-cli) version 1.0.0-beta.24.
 
 ## Development server
+
 Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
 
 ## Code scaffolding
