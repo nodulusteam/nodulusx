@@ -1,0 +1,16 @@
+{
+  "tests": "./codesept/*.js",
+  "timeout": 10000,
+  "output": "./output",
+  "helpers": {
+    "Nightmare": {
+      "url": "http://localhost:4200",
+      "show": true,
+      "restart": false
+    }
+  },
+  "include": {},
+  "bootstrap": false,
+  "mocha": {},
+  "name": "nodulusX"
+}

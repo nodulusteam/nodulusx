@@ -1,20 +1,38 @@
-// import { NodulusXPage } from './app.po';
 
-// describe('nodulus-x App', function() {
-//   let page: NodulusXPage;
 
-//   beforeEach(() => {
-//     page = new NodulusXPage();
-//   });
 
-//   it('should display message saying app works', () => {
-//     page.navigateTo();
-//     console.log(page.getParagraphText());
-//     expect(page.getParagraphText()).toEqual('main works!');
-//   });
-// });
 
+/* 
+//protractor  verion
+*/ 
+
+
+/*
+import { NodulusXPage } from './app.po';
+
+describe('nodulus-x App', function() {
+  let page: NodulusXPage;
+
+  beforeEach(() => {
+    page = new NodulusXPage();
+  });
+
+  it('should display message saying app works', () => {
+    page.navigateTo();
+    console.log(page.getParagraphText());
+    expect(page.getParagraphText()).toEqual('main works!');
+  });
+});
+
+*/
+
+
+
+//**************************************************************
+//zombie version
+//************************************************************** */
  
+
 const Zombie = require("zombie");
 var url = "http://localhost:4200/";
 var browser = new Zombie();
@@ -36,3 +54,4 @@ describe("testing with zombie", function() {
     });
 
 });
+

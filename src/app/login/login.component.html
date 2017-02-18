@@ -1,4 +1,6 @@
-<div class="jumbotron">
+<div style="display: flex;flex-direction: column;">
+
+<div class="jumbotron" style="flex-grow: 1">
     <div class="container">
         <h1>
             <span class="icon-nodulus"></span> nodulus
@@ -11,19 +13,33 @@
     </div>
 </div>
 
-<div class="container-fluid" style="text-align: center;height: 50%; padding-top: 15%;">
-    <i class="fa fa-cogs" style="font-size: 150px;" ng-click="app.open();"></i>
+<div class="container-fluid" style="text-align: center;flex-grow: 3">
+<i class="fa fa-cogs" style="font-size: 150px;" (click)="open(logindialog);"></i>
 </div>
-<div class="visible-desktop navbar navbar-fixed-bottom">
-    <div class="jumbotron">
-        <div class="container" style="height: 100%;">
-            <!--<p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more »</a></p>-->
-            <h1>
-                <span class="icon-nodulus"></span> nodulus <sup><small>&trade;</small></sup>
-            </h1>
-        </div>
+<div class="visible-desktop navbar navbar-fixed-bottom jumbotron" style="flex-grow: 1">
+
+    <div class="container" style="height: 100%;">
+<!--<p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more »</a></p>-->
+<h1>
+    <span class="icon-nodulus"></span> nodulus <sup><small>&trade;</small></sup>
+</h1>
+</div>
+
+</div>
+
+
+</div>
+
+<template #logindialog let-c="close" let-d="dismiss">
+
+    <div class="card-header">
+        <button type="button" class="close" ng-click="modal.dismiss('No bueno!')" aria-hidden="true">&times;</button>
+        <h3>
+            <span class="icon-nodulus"></span> nodulus <sup><small>&trade;</small></sup>
+        </h3>
     </div>
-</div>
- 
-<ngbd-modal-basic></ngbd-modal-basic>
- 
+</template>
+<!--
+   
+ {{"LOGIN.Email" | translate}}
+<ngbd-modal-basic></ngbd-modal-basic>-->

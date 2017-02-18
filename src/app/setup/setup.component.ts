@@ -31,6 +31,7 @@ export class SetupComponent implements OnInit {
   constructor(private modalService: NgbModal, private setupService: SetupService) { }
 
   ngOnInit() {
+   
     this.modalService.open(this.content, { backdrop: 'static', size: 'lg' } as NgbModalOptions).result.then((result) => {
       // this.closeResult = `Closed with: ${result}`;
     }, (reason) => {

@@ -1,40 +1,42 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-
+import { TranslateService } from 'ng2-translate';
 import { NgbModal, ModalDismissReasons, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { LoginService } from './login.service';
 
 @Component({
-  selector: 'ngbd-modal-basic',
-  templateUrl: './login.dialog.html',
-  
+  selector: 'app-login',
+  templateUrl: './login.component.html',
   styleUrls: ['./login.component.css'],
   providers: [LoginService],
 
 })
 export class LoginComponent implements OnInit {
 
-  @ViewChild('content') content;
+  @ViewChild('logindialog') logindialog;
   @ViewChild('email') email;
   @ViewChild('password') password;
   @ViewChild('LoginForm') LoginForm;
 
   closeResult: string;
   errorMessage: string;
-  constructor(private modalService: NgbModal, private loginService: LoginService) { }
+  constructor(translate: TranslateService, private modalService: NgbModal, private loginService: LoginService) {
+
+   
+  }
   public user: any;
 
   public Username: string;
   public Password: string;
   login() {
-
+    console.log('login, login');
     this.loginService.login(this.Username, this.Password).subscribe(
       user => this.user = user,
       error => this.errorMessage = <any>error);
   }
-  open(content) {
+  open(logindialog) {
 
-
-    this.modalService.open(content, { backdrop: 'static', size: 'sm' } as NgbModalOptions).result.then((result) => {
+    console.log('login, open');
+    this.modalService.open(logindialog, { backdrop: 'static', size: 'sm' } as NgbModalOptions).result.then((result) => {
       this.closeResult = `Closed with: ${result}`;
     }, (reason) => {
       this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
@@ -53,6 +55,7 @@ export class LoginComponent implements OnInit {
 
 
   ngOnInit() {
-    this.open(this.content);
+    console.log('login, ngOnInit');
+    //this.open(this.logindialog);
   }
 }
