@@ -1,15 +1,15 @@
 import { Component, ViewContainerRef, OnInit } from '@angular/core';
-import { NgbModule, NgbModal, ModalDismissReasons, NgbActiveModal } from '@ng-bootstrap/ng-bootstrap';
+
 import { LoginService } from './login/login.service';
 import { SetupService } from './setup/setup.service';
 import { Router, ROUTER_CONFIGURATION, RouterModule, Routes } from '@angular/router';
 
 
 
- 
+
 import { TranslateService } from 'ng2-translate';
 
- 
+
 
 
 @Component({
@@ -19,11 +19,6 @@ import { TranslateService } from 'ng2-translate';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit {
-  title = 'app works!';
-
-  /**
-   *
-   */
   constructor(translate: TranslateService, private router: Router, private loginService: LoginService, private setupService: SetupService) {
     translate.setDefaultLang('en');
     translate.use('he');
@@ -31,18 +26,13 @@ export class AppComponent implements OnInit {
   }
 
   ngOnInit() {
-
-    //this.setupService.validate().
-    if (this.loginService.checkToken()) {
-
-      //this.router.navigate(['setup']);
-      // this.router.navigateByUrl(parsedUrl);
-
-      this.router.navigateByUrl('/setup/', { skipLocationChange: true })
-      //this.router.navigateByUrl("!#/login");
-    }
-
-
+    this.setupService.validate().subscribe((validationResult: any) => {      
+      if (!this.loginService.checkToken()) {
+        this.router.navigateByUrl("login");
+      }
+    }, (error) => {
+      this.router.navigateByUrl('setup', { skipLocationChange: true });
+    });
   }
 }
 

@@ -5,22 +5,32 @@ import { Observable } from 'rxjs/Observable';
 @Injectable()
 export class LoginService {
     constructor(private http: Http) {
-        this.apiUrl = "@nodulus/users/login"
-     }
+        this.apiUrl = "@nodulus/users/login";
+        let user = localStorage.getItem('user');
+        if (user)
+            this.user = JSON.parse(user);
+
+    }
+    public user: any;
     apiUrl: string;
     userToken: string;
     public login(email: string, passowrd: string): Observable<Response> {
-        return this.http.post(this.apiUrl, {email: email, password: passowrd});
-        //.map(this.extractData)
+        return this.http.post(this.apiUrl, { email: email, password: passowrd })
+            .map(this.extractData)
+
+
         // .catch(this.handleError);
     }
 
-    public checkToken() : boolean {
-        return (this.userToken !== null);
+    public checkToken(): boolean {
+        return this.user !== null && this.user !== undefined;
+        // return this.userToken !== null && this.userToken !== undefined;
     }
     private extractData(res: Response) {
-        let body = res.json();
-        return body.data || {};
+        let body = JSON.parse((res as any)._body);
+        this.user = body;
+        localStorage.setItem('user', JSON.stringify(body));
+        return body || {};
     }
     private handleError(error: Response | any) {
         // In a real world app, we might use a remote logging infrastructure

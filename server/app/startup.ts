@@ -67,7 +67,7 @@ export class Startup {
         }
 
         console.log("***_____________________________________________________________________***");
-        core.use("/nodulus", require('../routes/nodulus.js'));
+        core.use("/@nodulus", require('../routes/nodulus.js'));
         var api = rest.start(core);
         console.log("***_____________________________________________________________________***");
         if (process.env.NODE_ENV === 'development') {
@@ -80,7 +80,7 @@ export class Startup {
         
 
 
-        core.use('/nodulus.json', (req: any, res: any) => {
+        core.use('/@nodulus/nodulus.json', (req: any, res: any) => {
             res.sendFile(path.join(process.cwd(), './nodulus.json'));
 
         })

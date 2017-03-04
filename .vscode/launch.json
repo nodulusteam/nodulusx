@@ -13,6 +13,7 @@
             "outFiles": [],
             "sourceMaps": true,
             "env": {
+                "DEBUG": "*",
                 "NODE_ENV": "local"
             }
         },

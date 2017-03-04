@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { TranslateService } from 'ng2-translate';
-import { NgbModal, ModalDismissReasons, NgbModalOptions } from '@ng-bootstrap/ng-bootstrap';
 import { LoginService } from './login.service';
+import { Router, ROUTER_CONFIGURATION, RouterModule, Routes } from '@angular/router';
 
 @Component({
   selector: 'app-login',
@@ -12,50 +12,37 @@ import { LoginService } from './login.service';
 })
 export class LoginComponent implements OnInit {
 
-  @ViewChild('logindialog') logindialog;
-  @ViewChild('email') email;
-  @ViewChild('password') password;
-  @ViewChild('LoginForm') LoginForm;
+  @ViewChild('staticModal') staticModal;
+  private closeResult: string;
+  private errorMessage: string;
+  private user: any;
+  private Username: string;
+  private Password: string;
 
-  closeResult: string;
-  errorMessage: string;
-  constructor(translate: TranslateService, private modalService: NgbModal, private loginService: LoginService) {
-
-   
+  constructor(translate: TranslateService, private router: Router, private loginService: LoginService) {
   }
-  public user: any;
 
-  public Username: string;
-  public Password: string;
   login() {
-    console.log('login, login');
     this.loginService.login(this.Username, this.Password).subscribe(
-      user => this.user = user,
+      user => {
+        this.user = user
+        this.router.navigateByUrl('');
+      },
       error => this.errorMessage = <any>error);
   }
-  open(logindialog) {
 
-    console.log('login, open');
-    this.modalService.open(logindialog, { backdrop: 'static', size: 'sm' } as NgbModalOptions).result.then((result) => {
-      this.closeResult = `Closed with: ${result}`;
-    }, (reason) => {
-      this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-    });
-  }
 
   private getDismissReason(reason: any): string {
-    if (reason === ModalDismissReasons.ESC) {
-      return 'by pressing ESC';
-    } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-      return 'by clicking on a backdrop';
-    } else {
-      return `with: ${reason}`;
-    }
+    return "";
+  }
+  public show() {
+    this.staticModal.config = { backdrop: 'static' }
+    this.staticModal.show();
+
   }
 
 
   ngOnInit() {
-    console.log('login, ngOnInit');
-    //this.open(this.logindialog);
+    this.show();
   }
 }

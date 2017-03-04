@@ -1,5 +1,6 @@
 <div style="display: flex;flex-direction: column;">
 
+
 <div class="jumbotron" style="flex-grow: 1">
     <div class="container">
         <h1>
@@ -12,7 +13,34 @@
         </h6>
     </div>
 </div>
-
+ 
+<div class="modal fade" bsModal #staticModal="bs-modal" 
+     tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <div class="modal-dialog modal-sm">
+      <div class="card">
+        <div class="card-header"><i class="fa fa-user"></i>  connect as:</div>
+        <div class="card-block">
+            <div name="LoginForm" novalidate>
+                <div class="form-group">
+                    <label>{{"LOGIN.Email" | translate}}:</label>
+                    <input type="text" id="email" class="form-control"  [(ngModel)]="Username" />
+                </div>
+                <div class="form-group">
+                    <label>Password:</label>
+                    <input type="password" id="password" class="form-control" [(ngModel)]="Password" />
+                    <div ng-messages="LoginForm.Password.$error">
+                        <div ng-message="required">This is required.</div>
+                      
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="card-footer">
+                        <a class="btn btn-primary" (click)="login()">Login</a>            
+        </div>
+    </div> 
+  </div>
+</div>
 <div class="container-fluid" style="text-align: center;flex-grow: 3">
 <i class="fa fa-cogs" style="font-size: 150px;" (click)="open(logindialog);"></i>
 </div>

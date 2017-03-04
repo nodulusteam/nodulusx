@@ -1,0 +1,1 @@
+export {credentials, language, setupRequest } from '../src/app/interfaces/index';

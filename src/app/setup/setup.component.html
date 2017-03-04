@@ -1,146 +1,162 @@
 <div class="container-fluid" style="text-align: center;height: 50%; padding-top: 15%;">
-<i class="fa fa-cogs" style="font-size: 150px;" ng-click="app.open();"></i>
+    <i class="fa fa-cogs" style="font-size: 150px;" ng-click="app.open();"></i>
 </div>
 <div class="visible-desktop navbar navbar-fixed-bottom">
     <div class="jumbotron">
         <div class="container" style="height: 100%;">
-<!--<p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more »</a></p>-->
-<h1>
-    <span class="icon-nodulus"></span>nodulus <sup><small>&trade;</small></sup>
-</h1>
-</div>
-</div>
-
-
-     
-
-</div>
-
-<template #content let-c="close" let-d="dismiss">
-
-    <div class="card-header">
-        <button type="button" class="close" ng-click="modal.dismiss('No bueno!')" aria-hidden="true">&times;</button>
-        <h3>
-            <span class="icon-nodulus"></span> nodulus <sup><small>&trade;</small></sup>
-        </h3>
+            <!--<p><a class="btn btn-primary btn-lg" href="#" role="button">Learn more »</a></p>-->
+            <h1>
+                <span class="icon-nodulus"></span>nodulus <sup><small>&trade;</small></sup>
+            </h1>
+        </div>
     </div>
 
 
-    <ngb-tabset #t="ngbTabset">
-        <div class="card no-top-border ">
-            <div class="card-block">
-                <ngb-tab title="Look & Feel" id="look_feel">
-                    <template ngbTabContent>
+
+
+</div>
 
 
 
-                        <div ng-switch-when="Welcome" class="card">
-                            <div class="pad10">
-                                <fieldset class="well pad10">
-                                    <div class="form-group">
-                                        <label>Language:</label>
-                                        <select id="LanguageSelector" class="form-control" data-ng-options="language.name for language in  modal.Languages" data-ng-model="modal.Language"
-                                            data-ng-change="SetLanguage()"></select>
-                                    </div>
-                                    <div class="form-group">
-                                        <label>
+
+<div class="modal fade" bsModal #staticModal="bs-modal" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+    <div class="modal-dialog" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="icon-nodulus modal-title">
+                    nodulus <sup><small>&trade;</small></sup>
+
+
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button></h5>
+            </div>
+            <div class="modal-body">
+
+                <tabset>
+                    <tab heading="Look & Feel" id="look_feel">
+
+                        <div class="pad10">
+                            <fieldset class="well pad10">
+                                <div class="form-group">
+                                    <label>Language:</label>
+
+                                    <select id="LanguageSelector" class="form-control" [(ngModel)]="setupRequest.language">
+                                        <option *ngFor="let language of languageService.languages" [ngValue]="language.name">{{language.name}}</option>
+                                    </select>
+                                </div>
+                                <div class="form-group">
+                                    <label>
                                 Theme:
                             </label>
+                                    <select id="ThemeSelector" class="form-control" [(ngModel)]="setupRequest.theme">
+                                        <option *ngFor="let theme of themeService.themes" [ngValue]="theme">{{theme}}</option>
+                                    </select>
 
-                                        <select id="ThemeSelector" class="form-control" data-ng-options="theme for theme in modal.Themes | orderBy: theme" data-ng-model="modal.Theme"></select>
-                                    </div>
-                                </fieldset>
-                            </div>
-                        </div>
 
-                    </template>
 
-                </ngb-tab>
-            </div>
-        </div>
-        <div class="card no-top-border ">
-            <div class="card-block">
-                <ngb-tab id="database">
-                    <template ngbTabTitle>Database</template>
-                    <template ngbTabContent>
-                        <div ng-switch-when="Persistence mode" class="wave">
-                            <div class="pad10">
-                                <fieldset class="well pad10">
-                                    <label>database type</label>
-                                    <div class="radio">
-                                        <label><input type="radio" name="dbtype" ng-model="modal.database" ng-value="{'diskdb':{'host': 'server/data'}}">FileDB</label>
-                                        <input type="text" ng-model="modal.database.diskdb.host" value="server/data" class="form-control" placeholder="server/data"
-                                        />
-                                    </div>
-                                    <div class="radio">
-                                        <label><input type="radio" name="dbtype" ng-model="modal.database" ng-value="{'mongodb':{host: 'mongodb://localhost:27017/nodulus'}}" value="mongodb">mongoDB</label>
-                                        <input type="text" ng-model="modal.database.mongodb.host" placeholder="mongodb://localhost:27017/nodulus" value="mongodb://localhost:27017/nodulus"
-                                            class="form-control" />
-                                    </div>
-                                    <div class="radio">
-                                        <label><input type="radio" name="dbtype" ng-model="modal.database" ng-value="{'rethinkdb':{'servers':[{'host': '127.0.0.1','port': 28015}]}}" value="rethinkdb">rethinkDB</label>
-                                        <input type="text" ng-model="modal.database.rethinkdb.servers" placeholder='[{"host": "127.0.0.1","port": 28015}]' class="form-control"
-                                        />
-                                    </div>
-                                </fieldset>
-                            </div>
-                        </div>
-                    </template>
-                </ngb-tab>
-
-            </div>
-        </div>
-        <div class="card no-top-border ">
-            <div class="card-block">
-
-                <ngb-tab id="credentials">
-                    <template ngbTabTitle>Credentials</template>
-                    <template ngbTabContent>
-                        <div ng-switch-when="Persistence mode" class="wave">
-                            <div ng-switch-when="Admin credentials" class="wave">
-                                <div class="pad10">
-                                    <fieldset class="well pad10">
-                                        <form name="RegisterForm" novalidate>
-                                            <div class="form-group">
-                                                <label>Email:</label>
-                                                <input type="text" class="form-control" ng-model="modal.Email" />
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Password:</label>
-                                                <input type="password" id="Password" class="form-control" ng-model="modal.Password" />
-                                                <div ng-messages="LoginForm.Password.$error">
-                                                    <div ng-message="required">This is required.</div>
-                                                    <!--<div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>-->
-                                                </div>
-                                            </div>
-                                            <div class="form-group">
-                                                <label>Confirm password:</label>
-                                                <input type="password" id="Password2" class="form-control" ng-model="modal.Password2" />
-                                                <div ng-messages="LoginForm.Password2.$error">
-                                                    <div ng-message="required">This is required.</div>
-                                                    <!--<div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>-->
-                                                </div>
-                                            </div>
-                                        </form>
-                                    </fieldset>
                                 </div>
-                            </div>
+                            </fieldset>
                         </div>
-                    </template>
-                </ngb-tab>
+
+                    </tab>
+
+                    <tab heading="Database">
+
+                        <div class="pad10">
+                            <fieldset class="well pad10">
+                                <label>database type</label>
+                                <div class="form-group">
+                                    <select id="DbSelector" class="form-control" [(ngModel)]="setupRequest.database">
+                                        <option *ngFor="let option of dbOptions" [ngValue]="option">{{option.name}}</option>
+                                    </select>
+                                </div>
+                                <div [ngSwitch]="setupRequest.database.name">
+                                    <div class="form-group" *ngSwitchCase="'diskdb'">
+
+                                        <div class="input-group">
+                                            <label class="input-group-addon"> FileDB</label>
+                                            <input type="text" [(ngModel)]="setupRequest.database.diskdb.host" ngValue="server/data" class="form-control" placeholder="server/data"
+                                            />
+                                        </div>
+                                    </div>
+
+
+                                    <div class="form-group" *ngSwitchCase="'mongodb'">
+                                        <div class="input-group">
+                                            <label class="input-group-addon"> mongoDB</label>
+                                            <input type="text" [(ngModel)]="setupRequest.database.mongodb.host" placeholder="mongodb://localhost:27017/nodulus" class="form-control"
+                                            />
+                                        </div>
+
+                                    </div>
+
+
+
+
+
+                                    <div class="form-group" *ngSwitchCase="'rethinkdb'">
+                                        <div class="input-group">
+                                            <label class="input-group-addon"> rethinkDB</label>
+                                            <div *ngFor="let server of setupRequest.database.rethinkdb.servers">
+                                                <input type="text" [(ngModel)]="server.host" placeholder='127.0.0.1' class="form-control" />
+                                                <input type="text" [(ngModel)]="server.port" placeholder='28015' class="form-control" />
+                                            </div>                                           
+                                        </div>
+                                    </div>
+                                </div>
+
+
+                            </fieldset>
+                        </div>
+
+
+
+                    </tab>
+
+
+                    <tab heading="Credentials">
+
+                        <div class="pad10">
+                            <fieldset class="well pad10">
+                                {{setupRequest.credentials | json}}
+                                <form name="RegisterForm" novalidate>
+                                    <div class="form-group">
+                                        <label>Email:</label>
+                                        <input type="text" class="form-control" [(ngModel)]="setupRequest.credentials.email" name="email" required/>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Password:</label>
+                                        <input type="password" id="Password" class="form-control" [(ngModel)]="setupRequest.credentials.password" name="password" required />
+                                        <div ng-messages="LoginForm.Password.$error">
+                                            <div ng-message="required">This is required.</div>
+                                            <!--<div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>-->
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label>Confirm password:</label>
+                                        <input type="password" id="Password2" class="form-control" [(ngModel)]="setupRequest.credentials.password2" name="password2" required />
+                                        <div ng-messages="LoginForm.Password2.$error">
+                                            <div ng-message="required">This is required.</div>
+                                            <!--<div ng-message="md-maxlength">The name has to be less than 30 characters long.</div>-->
+                                        </div>
+                                    </div>
+                                </form>
+                            </fieldset>
+                        </div>
+
+                    </tab>
+
+                </tabset>
+
+
+                <label class="form-error" [innerHTML]="errorLabel"></label>
+
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-primary" (click)="saveSetup()">Save changes</button>
+                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
             </div>
         </div>
-    </ngb-tabset>
-    <!--
-            <div class="btn-group">
-
-                <button class="btn" ng-repeat="step in modal.steps" ng-class="{'btn-primary':modal.isCurrentStep($index)}" ng-click="modal.setCurrentStep($index)">
-                {{step | translate}}
-            </button>
-
-            </div>-->
-
-    <div class="modal-footer">
     </div>
-
-</template>
+</div>
